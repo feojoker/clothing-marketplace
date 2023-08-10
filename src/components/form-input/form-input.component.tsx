@@ -9,7 +9,7 @@ type Props = {
     type: string,
     value: string,
     onChange: React.ChangeEventHandler<HTMLInputElement>,
-    onBlur: React.FocusEventHandler<HTMLInputElement>,
+    onBlur?: React.FocusEventHandler<HTMLInputElement>,
     required?: boolean,
     minLength?: number,
   }
