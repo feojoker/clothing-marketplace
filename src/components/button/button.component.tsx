@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 type Props = {
   children: ReactNode
   buttonType?: "google" | "inverted",
+  onClick?: React.MouseEventHandler<HTMLButtonElement>,
   type?: 'submit' | 'reset' | 'button';
   disabled?: boolean,
 
