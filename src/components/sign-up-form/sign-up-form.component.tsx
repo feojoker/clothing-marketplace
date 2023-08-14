@@ -4,6 +4,7 @@ import { getErrorMessage } from "utils/error/error.utils";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "utils/firebase/firebase.utils";
 import Button from 'components/button/button.component';
 import './sign-up-form.style.scss'
+import React from "react";
 
 const defaultFormFields = {
   displayName: '',
@@ -13,10 +14,8 @@ const defaultFormFields = {
 }
 
 const SignUpForm = () => {
-
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { displayName, email, password, confirmPassword } = formFields;
-
 
   const [error, setError] = useState({
     displayNameError: '',

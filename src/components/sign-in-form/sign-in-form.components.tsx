@@ -1,10 +1,10 @@
 import FormInput from "components/form-input/form-input.component";
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { getErrorMessage } from "utils/error/error.utils";
-import { auth, createAuthUserWithEmailAndPassword, createUserDocumentFromAuth, signInAuthWithEmailAndPassword, signInWithGoogleRedirect } from "utils/firebase/firebase.utils";
+import { signInAuthWithEmailAndPassword, signInWithGooglePopup } from "utils/firebase/firebase.utils";
 import Button from 'components/button/button.component';
 import './sign-in-form.style.scss'
-import { getRedirectResult } from "firebase/auth";
+
 
 const defaultFormFields = {
   email: '',
@@ -16,23 +16,15 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields)
   const { email, password } = formFields;
 
+
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
   }
-
-  useEffect(() => {
-    (async () => {
-      const response = await getRedirectResult(auth);
-      if (response) createUserDocumentFromAuth(response.user)
-    })()
-  }, [])
-
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const { user } = await signInAuthWithEmailAndPassword(email, password)
-      // await createUserDocumentFromAuth(user, { displayName })
       resetFormFields();
 
     } catch (error: any) {
@@ -88,7 +80,7 @@ const SignInForm = () => {
           <Button
             type="button"
             buttonType="google"
-            onClick={signInWithGoogleRedirect}
+            onClick={signInWithGooglePopup}
           >
             Google Sign In
           </Button>
