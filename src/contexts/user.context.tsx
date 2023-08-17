@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth';
 import { ReactNode, createContext, useState, useEffect } from 'react'
-import { createUserDocumentFromAuth, onAuthStateChangedListener, signOutUser } from 'utils/firebase/firebase.utils';
+import { createUserDocumentFromAuth, onAuthStateChangedListener } from 'utils/firebase/firebase.utils';
 
 export type UserDataContextType = {
   userData: User | null;
@@ -22,7 +22,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       setUserData(user)
     })
     return unsubscribe
-  }, [setUserData])
+  }, [])
   return (
     <UserContext.Provider value={value}>
       {children}
