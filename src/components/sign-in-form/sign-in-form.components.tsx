@@ -3,7 +3,7 @@ import { useState } from "react"
 import { getErrorMessage } from "utils/error/error.utils";
 import { signInAuthWithEmailAndPassword, signInWithGooglePopup } from "utils/firebase/firebase.utils";
 import Button from 'components/button/button.component';
-import './sign-in-form.style.scss'
+import './sign-in-form.styles.scss'
 
 
 const defaultFormFields = {
