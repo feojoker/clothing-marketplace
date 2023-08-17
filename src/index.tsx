@@ -8,6 +8,8 @@ import App from './App';
 import { UserProvider } from 'contexts/user.context';
 
 import './index.scss';
+import { ProductProvider } from 'contexts/product.context';
+import { CartProvider } from 'contexts/cart.context';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,7 +18,11 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <App />
+        <ProductProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>
+        </ProductProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
