@@ -1,4 +1,4 @@
-.category-card {
+.directory-card {
   min-width: 30%;
   height: 240px;
   flex: 1 1 auto;
@@ -12,12 +12,12 @@
   &:hover {
     cursor: pointer;
 
-    & .category-card__background {
+    & .directory-card__background {
       transform: scale(1.1);
       transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
     }
 
-    & .category-card__body {
+    & .directory-card__body {
       opacity: 0.9;
     }
   }
@@ -34,14 +34,14 @@
     margin-left: 7.5px;
   }
 
-  .category-card__background {
+  .directory-card__background {
     width: 100%;
     height: 100%;
     background-size: cover;
     background-position: center;
   }
 
-  .category-card__body {
+  .directory-card__body {
     height: 90px;
     padding: 0 25px;
     display: flex;
@@ -53,7 +53,7 @@
     opacity: 0.7;
     position: absolute;
 
-    .category-card__title {
+    .directory-card__title {
       font-family: 'Handjet', sans-serif;
       font-weight: bold;
       margin: 0 6px 0;
@@ -61,7 +61,7 @@
       color: #4a4a4a;
     }
 
-    .category-card__description {
+    .directory-card__description {
       font-weight: lighter;
       font-size: 16px;
     }
