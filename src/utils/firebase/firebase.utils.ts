@@ -1,7 +1,7 @@
+import { CategoryProductType } from 'contexts/categories.context';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
-  signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
@@ -13,7 +13,11 @@ import {
   getFirestore,
   doc,
   getDoc,
-  setDoc
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs
 } from 'firebase/firestore';
 import { getErrorMessage } from 'utils/error/error.utils';
 
@@ -38,16 +42,44 @@ googleProvider.setCustomParameters({
 
 export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
-export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider)
 
 
 
 export const db = getFirestore();
 
+// export const addCollectionAndDocuments = async (collectionKey: string, objectsToAdd: any) => {
+//   const collectionRef = collection(db, collectionKey);
+//   const batch = writeBatch(db);
+
+//   objectsToAdd.forEach((object: ShopData) => {
+//     const docRef = doc(collectionRef, object.title.toLowerCase())
+//     batch.set(docRef, object);
+//   });
+
+//   await batch.commit();
+//   console.log('done')
+// }
+
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, 'categories')
+  const q = query(collectionRef);
+
+  const querySnapshot = await getDocs(q);
+
+  const categoryMap = querySnapshot.docs.reduce((acc: Record<string, CategoryProductType[]>, docSnapshot) => {
+    const { title, items } = docSnapshot.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {})
+
+  return categoryMap
+}
+
 
 export const createUserDocumentFromAuth = async (userAuth: any, additionalInfo = {}) => {
-  const userDocRef = doc(db, 'users', userAuth.uid)
-  const userSnapshot = await getDoc(userDocRef)
+  const userDocRef = doc(db, 'users', userAuth.uid);
+  const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
