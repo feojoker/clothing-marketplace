@@ -19,11 +19,10 @@ const Category = () => {
       <h2 className='category__title'>
         {category}
       </h2>
-
       <div className='category__products'>
-        {
-          products?.map(product => <ProductCard key={product.id} product={product} />)
-        }
+        {products?.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </div>
     </div>
   )

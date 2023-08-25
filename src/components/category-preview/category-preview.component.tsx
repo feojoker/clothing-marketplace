@@ -12,8 +12,8 @@ const CategoryPreview = ({ title, products }: Props) => {
   return (
     <div className='category-preview'>
       <h2>
-        <Link to={title}>
-          <span className='category-preview__title'>{title.toUpperCase()}</span>
+        <Link to={title} className='category-preview__title'>
+          {title}
         </Link>
       </h2>
       <div className='category-preview__preview'>
