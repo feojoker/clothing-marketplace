@@ -3,7 +3,7 @@ import './cart-dropdown.styles.scss'
 import Button from 'components/button/button.component'
 import { CartContext } from 'contexts/cart.context'
 import CartItem from 'components/cart-item/cart-item.component'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const CartDropdown = () => {
   const { isCartOpen, cartItems, setIsCartOpen } = useContext(CartContext)
