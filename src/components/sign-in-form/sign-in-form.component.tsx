@@ -24,7 +24,7 @@ const SignInForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const { user } = await signInAuthWithEmailAndPassword(email, password)
+      await signInAuthWithEmailAndPassword(email, password)
       resetFormFields();
 
     } catch (error: any) {
