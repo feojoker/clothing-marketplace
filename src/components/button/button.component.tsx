@@ -1,29 +1,36 @@
-import './button.styles.scss'
 import { ReactNode } from 'react'
+import { BaseButton, GoogleSignInButton, InvertedButton } from './button.styles';
 
 type Props = {
   children: ReactNode
-  buttonType?: "google" | "inverted",
+  buttonType?: "base" | "google" | "inverted",
   onClick?: React.MouseEventHandler<HTMLButtonElement>,
   type?: 'submit' | 'reset' | 'button';
   disabled?: boolean,
 
 }
 
-const BUTTON_TYPE_CLASSES = {
-  google: 'google-sign-in',
-  inverted: 'inverted'
+const getButton = (buttonType: "base" | "google" | "inverted") => {
+  switch (buttonType) {
+    case 'google':
+      return GoogleSignInButton
+
+    case 'inverted':
+      return InvertedButton
+
+    default:
+      return BaseButton
+  }
 }
 
 
-const Button = ({ children, buttonType, ...otherProps }: Props) => {
+const Button = ({ children, buttonType = 'base', ...otherProps }: Props) => {
+
+  const CustomButton = getButton(buttonType)
   return (
-    <button
-      className={`btn-container ${buttonType ? BUTTON_TYPE_CLASSES[buttonType] : ''}`}
-      {...otherProps}
-    >
+    <CustomButton {...otherProps}>
       {children}
-    </button>
+    </CustomButton>
   )
 }
 
