@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import './cart-dropdown.styles.scss'
 import Button from 'components/button/button.component'
 import { CartContext } from 'contexts/cart.context'
@@ -10,7 +10,7 @@ const CartDropdown = () => {
   const navigate = useNavigate();
 
   const goToCheckoutHandler = () => {
-    setIsCartOpen(false)
+    setIsCartOpen()
     navigate("/checkout")
   }
 

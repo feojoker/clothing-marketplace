@@ -1,4 +1,5 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useReducer } from "react";
+import { createAction } from "utils/reducer/reducer.utils";
 
 export type CartItemType = {
   id: number,
@@ -17,11 +18,35 @@ type ProductType = {
 
 type CartContextType = {
   isCartOpen: boolean,
-  setIsCartOpen: (isCartOpen: boolean) => void,
+  setIsCartOpen: () => void,
   cartItems: CartItemType[],
   addItemToCart: (productToAdd: ProductType) => void,
   removeItemFromCart: (productToRemove: ProductType) => void,
   deleteProductFromCart: (productToDelete: ProductType) => void,
+  cartCount: number,
+  cartTotal: number,
+}
+
+type CartReducerStateType = {
+  isCartOpen: boolean,
+  cartItems: CartItemType[],
+  cartCount: number,
+  cartTotal: number,
+}
+
+
+type CartReducerActionTypeType = 'SET_CART_ITEMS' | 'SET_IS_CART_OPEN';
+
+type CartReducerActionPayloadType = {
+  isCartOpen?: boolean,
+  cartItems?: CartItemType[],
+  cartCount?: number,
+  cartTotal?: number,
+} | null;
+
+type CartReducerActionType = {
+  type: CartReducerActionTypeType,
+  payload: CartReducerActionPayloadType,
 }
 
 const addCartItemHelper = (cartItems: CartItemType[], productToAdd: ProductType) => {
@@ -55,27 +80,80 @@ export const CartContext = createContext<CartContextType>({
   addItemToCart: () => { },
   removeItemFromCart: () => { },
   deleteProductFromCart: () => { },
+  cartCount: 0,
+  cartTotal: 0,
 });
 
 
-export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [isCartOpen, setIsCartOpen] = useState<boolean>(false)
-  const [cartItems, setCartItems] = useState<CartItemType[]>([])
+const INITIAL_STATE = {
+  isCartOpen: false,
+  cartItems: [],
+  cartCount: 0,
+  cartTotal: 0,
+}
 
+const cartReducer = (state: CartReducerStateType, action: CartReducerActionType) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case 'SET_CART_ITEMS':
+      return {
+        ...state,
+        ...payload
+      };
+
+    case 'SET_IS_CART_OPEN':
+      return {
+        ...state,
+        isCartOpen: !state.isCartOpen,
+      }
+
+    default:
+      throw new Error(`unhandled type of ${type} in cardReducer`)
+  }
+}
+
+
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [{ isCartOpen, cartItems, cartCount, cartTotal }, dispatch] = useReducer(cartReducer, INITIAL_STATE)
+
+  const updateCartItemsReducer = (newCartItems: CartItemType[]) => {
+    const newCartCount = newCartItems.reduce((total: number, cartItem: CartItemType) => total + cartItem.quantity, 0)
+    const newCartTotal = newCartItems.reduce((total, cartItem) => total + (cartItem.quantity * cartItem.price), 0);
+
+    dispatch(createAction<CartReducerActionTypeType, CartReducerActionPayloadType>(
+      'SET_CART_ITEMS',
+      {
+        cartItems: newCartItems,
+        cartCount: newCartCount,
+        cartTotal: newCartTotal,
+      }
+    ))
+  }
+
+  const setIsCartOpen = () => {
+    dispatch(createAction<CartReducerActionTypeType, CartReducerActionPayloadType>(
+      'SET_IS_CART_OPEN',
+      null
+    ))
+  }
 
   const addItemToCart = (productToAdd: ProductType) => {
-    setCartItems(addCartItemHelper(cartItems, productToAdd))
+    const newCartItems = addCartItemHelper(cartItems, productToAdd)
+    updateCartItemsReducer(newCartItems)
   }
 
   const removeItemFromCart = (cartItemToRemove: ProductType) => {
-    setCartItems(removeCartItemHelper(cartItems, cartItemToRemove))
+    const newCartItems = removeCartItemHelper(cartItems, cartItemToRemove)
+    updateCartItemsReducer(newCartItems)
   }
 
   const deleteProductFromCart = (cartProductToRemove: ProductType) => {
-    setCartItems(deleteCartProductHelper(cartItems, cartProductToRemove))
+    const newCartItems = deleteCartProductHelper(cartItems, cartProductToRemove)
+    updateCartItemsReducer(newCartItems)
   }
 
-  const value = { isCartOpen, setIsCartOpen, cartItems, addItemToCart, removeItemFromCart, deleteProductFromCart }
+  const value = { isCartOpen, setIsCartOpen, cartItems, addItemToCart, removeItemFromCart, deleteProductFromCart, cartCount, cartTotal }
 
   return (
     <CartContext.Provider value={value}>

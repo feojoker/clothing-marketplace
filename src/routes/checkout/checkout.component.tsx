@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import './checkout.styles.scss'
 import { CartContext } from 'contexts/cart.context';
 import CheckoutItem from 'components/checkout-item/checkout-item.components';
@@ -6,20 +6,13 @@ import CheckoutItem from 'components/checkout-item/checkout-item.components';
 const checkoutHeaders = ['Product', 'Description', 'Quantity', 'Price', 'Remove']
 
 const Checkout = () => {
-  const { cartItems } = useContext(CartContext);
-
-  const [cartTotal, setCartTotal] = useState<number>(0);
-
-  useEffect(() => {
-    const newTotal = cartItems.reduce((total, cartItem) => total + (cartItem.quantity * cartItem.price), 0);
-    setCartTotal(newTotal)
-  }, [cartItems])
+  const { cartItems, cartTotal } = useContext(CartContext);
 
   return (
     <div className='checkout'>
       <div className='checkout__header'>
         {checkoutHeaders.map((header) => (
-          <div className='checkout__header-block'>
+          <div className='checkout__header-block' key={header}>
             <span>{header}</span>
           </div>
         ))}
