@@ -1,5 +1,5 @@
-import DirectoryCard from "components/directory-card/directory-card.component";
-import categories from "data/categories.data";
+import DirectoryCard from "@components/directory-card/directory-card.component";
+import categories from "@data/categories.data";
 import "./directory.styles.scss";
 
 

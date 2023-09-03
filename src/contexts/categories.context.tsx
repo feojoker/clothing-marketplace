@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState, useEffect } from 'react'
-import { getCategoriesAndDocuments } from 'utils/firebase/firebase.utils';
+import { getCategoriesAndDocuments } from '@utils/firebase/firebase.utils';
 // import { addCollectionAndDocuments } from 'utils/firebase/firebase.utils';
 
 

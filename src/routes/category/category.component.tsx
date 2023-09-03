@@ -1,7 +1,7 @@
-import ProductCard from 'components/product-card/product-card.component';
-import { CategoriesContext, CategoryProductType } from 'contexts/categories.context';
 import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
+import { CategoriesContext, CategoryProductType } from '@contexts/categories.context';
+import ProductCard from '@components/product-card/product-card.component';
 import './category.styles.scss'
 
 const Category = () => {

@@ -5,11 +5,11 @@ import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
 import App from './App';
-import { UserProvider } from 'contexts/user.context';
+import { UserProvider } from '@contexts/user.context';
+import { CategoriesProvider } from '@contexts/categories.context';
+import { CartProvider } from '@contexts/cart.context';
 
 import './index.scss';
-import { CategoriesProvider } from 'contexts/categories.context';
-import { CartProvider } from 'contexts/cart.context';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -1,7 +1,7 @@
 import { useContext } from 'react'
+import { CartContext } from '@contexts/cart.context';
+import CheckoutItem from '@components/checkout-item/checkout-item.components';
 import './checkout.styles.scss'
-import { CartContext } from 'contexts/cart.context';
-import CheckoutItem from 'components/checkout-item/checkout-item.components';
 
 const checkoutHeaders = ['Product', 'Description', 'Quantity', 'Price', 'Remove']
 

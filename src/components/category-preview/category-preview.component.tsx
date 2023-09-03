@@ -1,5 +1,5 @@
-import { CategoryProductType } from 'contexts/categories.context'
-import ProductCard from 'components/product-card/product-card.component'
+import { CategoryProductType } from '@contexts/categories.context'
+import ProductCard from '@components/product-card/product-card.component'
 import './category-preview.styles.scss'
 import { Link } from 'react-router-dom'
 
