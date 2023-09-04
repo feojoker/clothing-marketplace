@@ -1,4 +1,3 @@
-import { CategoryProductType } from 'contexts/categories.context';
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -18,6 +17,7 @@ import {
   query,
   getDocs
 } from 'firebase/firestore';
+import { RawCategoryType } from 'store/categories/categories.types';
 import { getErrorMessage } from 'utils/error/error.utils';
 
 
@@ -60,19 +60,12 @@ export const db = getFirestore();
 // }
 
 
-export const getCategoriesAndDocuments = async () => {
+export const getCategoriesAndDocuments = async (): Promise<RawCategoryType[]> => {
   const collectionRef = collection(db, 'categories')
   const q = query(collectionRef);
-
   const querySnapshot = await getDocs(q);
 
-  const categoryMap = querySnapshot.docs.reduce((acc: Record<string, CategoryProductType[]>, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {})
-
-  return categoryMap
+  return querySnapshot.docs.map(docSnapshot => docSnapshot.data()) as RawCategoryType[]
 }
 
 

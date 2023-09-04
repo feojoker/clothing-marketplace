@@ -1,8 +1,8 @@
 import Button from 'components/button/button.component'
 import './product-card.styles.scss'
-import { CategoryProductType } from 'contexts/categories.context';
 import { useContext } from 'react';
 import { CartContext } from 'contexts/cart.context';
+import type { CategoryProductType } from 'store/categories/categories.types';
 
 const ProductCard = ({ product }: { product: CategoryProductType }) => {
   const { name, imageUrl, price } = product;

@@ -116,6 +116,7 @@ const cartReducer = (state: CartReducerStateType, action: CartReducerActionType)
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [{ isCartOpen, cartItems, cartCount, cartTotal }, dispatch] = useReducer(cartReducer, INITIAL_STATE)
+  console.log(cartItems)
 
   const updateCartItemsReducer = (newCartItems: CartItemType[]) => {
     const newCartCount = newCartItems.reduce((total: number, cartItem: CartItemType) => total + cartItem.quantity, 0)

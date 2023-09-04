@@ -1,17 +1,19 @@
 import ProductCard from 'components/product-card/product-card.component';
-import { CategoriesContext, CategoryProductType } from 'contexts/categories.context';
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { useAppSelector } from 'store/hooks';
+import { selectCategories } from 'store/categories/categories.selector';
+import type { CategoryProductType } from 'store/categories/categories.types';
 import './category.styles.scss'
 
 const Category = () => {
 
   const { category } = useParams();
   const [products, setProducts] = useState<CategoryProductType[]>([]);
-  const { categoriesMap } = useContext(CategoriesContext);
+  const categoriesMap = useAppSelector(selectCategories)
 
   useEffect(() => {
-    if (category) setProducts(categoriesMap[category])
+    if (category && categoriesMap) setProducts(categoriesMap[category])
   }, [category, categoriesMap])
 
   return (
