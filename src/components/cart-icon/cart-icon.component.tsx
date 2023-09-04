@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import './cart-icon.styles.scss'
 import { ReactComponent as ShopingIcon } from 'assets/shopping-bag.svg'
-import { CartContext, CartItemType } from 'contexts/cart.context'
+import { CartContext } from 'contexts/cart.context'
 
 const CartIcon = () => {
   const { setIsCartOpen, cartCount } = useContext(CartContext);
