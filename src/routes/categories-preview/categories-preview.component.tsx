@@ -1,9 +1,9 @@
 import CategoryPreview from 'components/category-preview/category-preview.component';
 import { useAppSelector } from 'store/hooks';
-import { selectCategories } from 'store/categories/categories.selector';
+import { selectCategoriesMap } from 'store/categories/categories.selector';
 
 const CategoriesPreview = () => {
-  const categoriesMap = useAppSelector(selectCategories)
+  const categoriesMap = useAppSelector(selectCategoriesMap)
 
   return (
     <>
