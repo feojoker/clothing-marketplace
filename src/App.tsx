@@ -22,7 +22,7 @@ const App = () => {
       dispatch(setUserData(user))
     })
     return unsubscribe
-  }, [])
+  }, [dispatch])
 
   return (
     <Routes>
