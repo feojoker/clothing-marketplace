@@ -1,22 +1,26 @@
-import { useContext } from 'react';
 import './checkout-item.styles.scss'
-import { CartContext, CartItemType } from 'contexts/cart.context';
+import { CartItemType } from 'contexts/cart.context';
+import { updateCartItemsReducer } from 'store/cart/cart.helpers';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
+import { selectCartItems } from 'store/cart/cart.selector';
 
 const CheckoutItem = ({ checkoutItem }: { checkoutItem: CartItemType }) => {
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector(selectCartItems);
+
   const { imageUrl, name, quantity, price } = checkoutItem;
 
-  const { addItemToCart, removeItemFromCart, deleteProductFromCart } = useContext(CartContext);
 
   const handleRemoveItem = () => {
-    removeItemFromCart(checkoutItem)
+    updateCartItemsReducer(dispatch, cartItems, 'removeItem', checkoutItem)
   }
 
   const handleAddItem = () => {
-    addItemToCart(checkoutItem)
+    updateCartItemsReducer(dispatch, cartItems, 'addItem', checkoutItem)
   }
 
   const handleDeleteProduct = () => {
-    deleteProductFromCart(checkoutItem)
+    updateCartItemsReducer(dispatch, cartItems, 'deleteProduct', checkoutItem)
   }
 
   return (

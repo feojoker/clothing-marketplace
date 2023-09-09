@@ -9,7 +9,6 @@ import { Provider } from 'react-redux'
 
 
 import './index.scss';
-import { CartProvider } from 'contexts/cart.context';
 import { store } from 'store/store';
 
 const root = ReactDOM.createRoot(
@@ -19,12 +18,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <CartProvider>
-          <App />
-        </CartProvider>
+        <App />
       </BrowserRouter>
     </Provider>
-
   </React.StrictMode>
 );
 
