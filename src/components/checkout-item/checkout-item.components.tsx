@@ -1,8 +1,8 @@
 import './checkout-item.styles.scss'
-import { CartItemType } from 'contexts/cart.context';
 import { updateCartItemsReducer } from 'store/cart/cart.helpers';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { selectCartItems } from 'store/cart/cart.selector';
+import type { CartItemType } from 'store/cart/cart.types';
 
 const CheckoutItem = ({ checkoutItem }: { checkoutItem: CartItemType }) => {
   const dispatch = useAppDispatch();
