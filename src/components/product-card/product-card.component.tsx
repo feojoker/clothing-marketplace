@@ -1,19 +1,17 @@
 import Button from 'components/button/button.component'
 import './product-card.styles.scss'
 import type { CategoryProductType } from 'store/categories/categories.types';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from 'store/hooks';
+import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { selectCartItems } from 'store/cart/cart.selector';
-import { updateCartItemsReducer } from 'store/cart/cart.helpers';
+import { updateCartItems } from 'store/cart/cart.action';
 
 const ProductCard = ({ product }: { product: CategoryProductType }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const cartItems = useAppSelector(selectCartItems);
 
   const { name, imageUrl, price } = product;
 
-  const addProductToCard = () => updateCartItemsReducer(dispatch, cartItems, 'addItem', product)
-
+  const addProductToCard = () => dispatch(updateCartItems(cartItems, 'addItem', product))
 
 
   return (

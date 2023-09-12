@@ -1,5 +1,5 @@
 import './checkout-item.styles.scss'
-import { updateCartItemsReducer } from 'store/cart/cart.helpers';
+import { updateCartItems } from 'store/cart/cart.action';
 import { useAppDispatch, useAppSelector } from 'store/hooks';
 import { selectCartItems } from 'store/cart/cart.selector';
 import type { CartItemType } from 'store/cart/cart.types';
@@ -11,17 +11,11 @@ const CheckoutItem = ({ checkoutItem }: { checkoutItem: CartItemType }) => {
   const { imageUrl, name, quantity, price } = checkoutItem;
 
 
-  const handleRemoveItem = () => {
-    updateCartItemsReducer(dispatch, cartItems, 'removeItem', checkoutItem)
-  }
+  const handleRemoveItem = () => dispatch(updateCartItems(cartItems, 'removeItem', checkoutItem))
 
-  const handleAddItem = () => {
-    updateCartItemsReducer(dispatch, cartItems, 'addItem', checkoutItem)
-  }
+  const handleAddItem = () => dispatch(updateCartItems(cartItems, 'addItem', checkoutItem))
 
-  const handleDeleteProduct = () => {
-    updateCartItemsReducer(dispatch, cartItems, 'deleteProduct', checkoutItem)
-  }
+  const handleDeleteProduct = () => dispatch(updateCartItems(cartItems, 'deleteProduct', checkoutItem))
 
   return (
     <div className='checkout-item'>

@@ -2,19 +2,20 @@ import './cart-dropdown.styles.scss'
 import Button from 'components/button/button.component'
 import CartItem from 'components/cart-item/cart-item.component'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { setIsCartOpen } from 'store/cart/cart.action'
 import { selectIsCartOpen, selectCartItems } from 'store/cart/cart.selector'
-import { useAppSelector } from 'store/hooks'
+import { useAppDispatch, useAppSelector } from 'store/hooks'
 
 const CartDropdown = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
-  const isCartOpen = useAppSelector(selectIsCartOpen);
   const cartItems = useAppSelector(selectCartItems);
+  const isCartOpen = useAppSelector(selectIsCartOpen);
+
 
   const goToCheckoutHandler = () => {
-    dispatch(setIsCartOpen())
+    dispatch(setIsCartOpen(false))
     navigate("/checkout")
   }
 
